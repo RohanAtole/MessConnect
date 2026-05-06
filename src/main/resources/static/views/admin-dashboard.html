@@ -1,0 +1,120 @@
+<div id="admin-dashboard-view" style="display: none;" class="dashboard-layout">
+    <aside class="sidebar">
+        <div class="logo">Admin Panel</div>
+        <div class="sidebar-menu">
+            <div class="sidebar-item" onclick="switchAdminSection('overview')"><i class="fas fa-shield-alt"></i> Overview</div>
+            <div class="sidebar-item" onclick="switchAdminSection('vendors')"><i class="fas fa-store"></i> All Vendors</div>
+            <div class="sidebar-item" onclick="switchAdminSection('users')"><i class="fas fa-users"></i> User Management</div>
+            <div class="sidebar-item" onclick="switchAdminSection('settings')"><i class="fas fa-cog"></i> Settings</div>
+        </div>
+    </aside>
+    <main class="main-content">
+        <div id="admin-overview" class="dashboard-section">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 30px;">
+                <h2>System Control Center</h2>
+                <button class="btn btn-outline" onclick="loadAdminData()"><i class="fas fa-sync"></i> Refresh Data</button>
+            </div>
+
+            <div class="stats-grid">
+                <div class="glass-card stat-card" style="border-bottom: 4px solid var(--primary-color);">
+                    <i class="fas fa-store" style="font-size: 24px; color: var(--primary-color); margin-bottom: 15px;"></i>
+                    <h4>Active Vendors</h4>
+                    <div class="value" id="a-stat-vendors">0</div>
+                </div>
+                <div class="glass-card stat-card" style="border-bottom: 4px solid #2196F3;">
+                    <i class="fas fa-users" style="font-size: 24px; color: #2196F3; margin-bottom: 15px;"></i>
+                    <h4>Total Customers</h4>
+                    <div class="value" id="a-stat-customers">0</div>
+                </div>
+                <div class="glass-card stat-card" style="border-bottom: 4px solid var(--accent-color);">
+                    <i class="fas fa-clock" style="font-size: 24px; color: var(--accent-color); margin-bottom: 15px;"></i>
+                    <h4>Pending Approvals</h4>
+                    <div class="value" id="a-stat-pending">0</div>
+                </div>
+            </div>
+
+            <div class="glass-card" style="padding: 35px; margin-top: 40px; border: 2px solid #fff3e0;">
+                <h3 style="display: flex; align-items: center; gap: 10px; color: #e65100;">
+                    <i class="fas fa-exclamation-circle"></i> Action Required: Pending Vendor Approvals
+                </h3>
+                <p style="color: var(--text-muted); margin: 10px 0 25px 0;">New mess owners are waiting for your verification. Approve them to make them visible on the home page.</p>
+                <div id="pending-vendors-list">
+                    <div style="text-align: center; padding: 40px; color: #999;">Checking for pending registrations...</div>
+                </div>
+            </div>
+        </div>
+
+        <div id="admin-vendors" class="dashboard-section" style="display: none;">
+            <h3>Registered Vendors</h3>
+            <div class="glass-card" style="padding: 20px; margin-top: 20px;">
+                <table style="width: 100%; border-collapse: collapse;">
+                    <thead>
+                        <tr style="text-align: left; border-bottom: 1px solid #eee;">
+                            <th style="padding: 10px;">Mess Name</th>
+                            <th style="padding: 10px;">Owner</th>
+                            <th style="padding: 10px;">Status</th>
+                            <th style="padding: 10px;">Joined</th>
+                            <th style="padding: 10px;">Action</th>
+                        </tr>
+                    </thead>
+                    <tbody id="a-all-vendors-list"></tbody>
+                </table>
+            </div>
+        </div>
+
+        <div id="admin-users" class="dashboard-section" style="display: none;">
+            <h3>User Management</h3>
+            <div class="glass-card" style="padding: 20px; margin-top: 20px;">
+                <div id="a-user-list"></div>
+            </div>
+        </div>
+
+        <div id="admin-settings" class="dashboard-section" style="display: none;">
+            <h3>Admin Settings</h3>
+            <div class="glass-card" style="padding: 30px; margin-top: 20px;">
+                <form id="admin-settings-form">
+                    <div class="form-group">
+                        <label>Email Address</label>
+                        <input type="email" id="as-email">
+                    </div>
+                    <button type="submit" class="btn btn-primary">Save Changes</button>
+                </form>
+            </div>
+        </div>
+
+        <div id="edit-vendor-modal" class="modal" style="display: none;">
+            <div class="glass-card modal-content" style="max-width: 600px;">
+                <h3>Edit Vendor Details</h3>
+                <form id="edit-vendor-form" style="margin-top: 20px;">
+                    <input type="hidden" id="ev-id">
+                    <div class="form-group"><label>Mess Name</label><input type="text" id="ev-mess-name"></div>
+                    <div class="form-group"><label>Owner Name</label><input type="text" id="ev-owner-name"></div>
+                    <div class="form-group"><label>Email</label><input type="email" id="ev-email"></div>
+                    <div class="form-group"><label>Phone</label><input type="text" id="ev-phone"></div>
+                    <div class="form-group"><label>Address</label><textarea id="ev-address"></textarea></div>
+                    <div style="display: flex; gap: 10px; margin-top: 20px;">
+                        <button type="submit" class="btn btn-primary">Save Changes</button>
+                        <button type="button" class="btn btn-outline" onclick="closeModal('edit-vendor-modal')">Cancel</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <div id="edit-customer-modal" class="modal" style="display: none;">
+            <div class="glass-card modal-content" style="max-width: 600px;">
+                <h3>Edit Customer Details</h3>
+                <form id="edit-customer-form" style="margin-top: 20px;">
+                    <input type="hidden" id="ec-id">
+                    <div class="form-group"><label>Name</label><input type="text" id="ec-name"></div>
+                    <div class="form-group"><label>Email</label><input type="email" id="ec-email"></div>
+                    <div class="form-group"><label>Phone</label><input type="text" id="ec-phone"></div>
+                    <div class="form-group"><label>Address</label><textarea id="ec-address"></textarea></div>
+                    <div style="display: flex; gap: 10px; margin-top: 20px;">
+                        <button type="submit" class="btn btn-primary">Save Changes</button>
+                        <button type="button" class="btn btn-outline" onclick="closeModal('edit-customer-modal')">Cancel</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </main>
+</div>

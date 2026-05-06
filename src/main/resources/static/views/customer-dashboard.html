@@ -1,0 +1,96 @@
+<div id="customer-dashboard-view" style="display: none;" class="dashboard-layout">
+    <aside class="sidebar">
+        <div class="logo">MessConnect</div>
+        <div class="sidebar-menu">
+            <a href="#" class="active" onclick="switchCustomerSection('subs')"><i class="fas fa-home"></i> Overview</a>
+            <a href="#" onclick="switchCustomerSection('discover')"><i class="fas fa-search"></i> Join New Mess</a>
+            <a href="#" onclick="switchCustomerSection('payments')"><i class="fas fa-credit-card"></i> Payments</a>
+            <a href="#" onclick="switchCustomerSection('profile')"><i class="fas fa-user"></i> Profile</a>
+        </div>
+    </aside>
+    <main class="main-content">
+        <header style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 30px;">
+            <h2>Customer Dashboard</h2>
+            <div id="user-info">Welcome, <span id="user-display-name">User</span></div>
+        </header>
+
+        <div id="customer-subs" class="dashboard-section">
+            <div class="stats-grid">
+                <div class="glass-card stat-card">
+                    <h4>Active Subscriptions</h4>
+                    <div class="value" id="stat-active-subs">0</div>
+                </div>
+                <div class="glass-card stat-card">
+                    <h4>Total Spent</h4>
+                    <div class="value" id="stat-total-spent">INR 0</div>
+                </div>
+                <div class="glass-card stat-card">
+                    <h4>Days Remaining</h4>
+                    <div class="value" id="stat-days-left">0</div>
+                </div>
+            </div>
+
+            <div class="glass-card" style="padding: 30px;">
+                <h3>Active Subscription Details</h3>
+                <div id="subscription-list" style="margin-top: 20px;">
+                    <p>No active subscriptions found. <a href="#" onclick="navigateTo('discovery')">Find a mess now.</a></p>
+                </div>
+            </div>
+        </div>
+
+        <div id="customer-discover" class="dashboard-section" style="display: none;">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+                <h3>Discover Mess Services</h3>
+                <button class="btn btn-outline" onclick="loadAvailablePlansForCustomer()"><i class="fas fa-sync"></i> Refresh</button>
+            </div>
+            <div class="mess-grid" id="c-available-plans">
+                <div class="glass-card" style="padding: 40px; text-align: center; grid-column: 1/-1;">Loading available services...</div>
+            </div>
+        </div>
+
+        <div id="customer-payments" class="dashboard-section" style="display: none;">
+            <h3>Payment History</h3>
+            <div class="glass-card" style="padding: 20px; margin-top: 20px;">
+                <table style="width: 100%; border-collapse: collapse;">
+                    <thead>
+                        <tr style="text-align: left; border-bottom: 1px solid #eee;">
+                            <th style="padding: 10px;">Amount</th>
+                            <th style="padding: 10px;">Method</th>
+                            <th style="padding: 10px;">Status</th>
+                            <th style="padding: 10px;">Date</th>
+                            <th style="padding: 10px;">Action</th>
+                        </tr>
+                    </thead>
+                    <tbody id="c-payment-list"></tbody>
+                </table>
+            </div>
+        </div>
+
+        <div id="customer-profile" class="dashboard-section" style="display: none;">
+            <h3>My Profile</h3>
+            <div class="glass-card" style="padding: 30px; margin-top: 20px;">
+                <form id="customer-profile-form">
+                    <div class="form-group">
+                        <label>Full Name</label>
+                        <input type="text" id="cp-name">
+                    </div>
+                    <div class="form-group">
+                        <label>Phone</label>
+                        <input type="text" id="cp-phone">
+                    </div>
+                    <div class="form-group">
+                        <label>Address</label>
+                        <textarea id="cp-address" rows="2"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label>Profile Image</label>
+                        <input type="file" id="cp-image-file" accept="image/*" onchange="previewCustomerImage(this)">
+                        <input type="hidden" id="cp-image-base64">
+                        <div id="cp-image-preview" style="margin-top: 10px;"></div>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Update Profile</button>
+                </form>
+            </div>
+        </div>
+    </main>
+</div>

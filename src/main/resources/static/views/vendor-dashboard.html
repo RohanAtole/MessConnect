@@ -1,0 +1,126 @@
+<div id="vendor-dashboard-view" style="display: none;" class="dashboard-layout">
+    <aside class="sidebar">
+        <div class="logo">MessConnect</div>
+        <div class="sidebar-menu">
+            <div class="sidebar-item" onclick="switchVendorSection('analytics')"><i class="fas fa-chart-line"></i> Analytics</div>
+            <div class="sidebar-item" onclick="switchVendorSection('menu')"><i class="fas fa-utensils"></i> Menu Management</div>
+            <div class="sidebar-item" onclick="switchVendorSection('plans')"><i class="fas fa-tags"></i> Plan Management</div>
+            <div class="sidebar-item" onclick="switchVendorSection('attendance')"><i class="fas fa-calendar-check"></i> Daily Attendance</div>
+            <div class="sidebar-item" onclick="switchVendorSection('settings')"><i class="fas fa-cog"></i> Settings</div>
+        </div>
+    </aside>
+    <main class="main-content">
+        <header style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 30px;">
+            <h2>Vendor Console</h2>
+            <div id="vendor-info"><span id="vendor-display-name">Mess Name</span></div>
+        </header>
+
+        <div id="vendor-analytics" class="dashboard-section">
+            <div class="stats-grid">
+                <div class="glass-card stat-card">
+                    <h4>Total Subscribers</h4>
+                    <div class="value" id="v-stat-subs">0</div>
+                </div>
+                <div class="glass-card stat-card">
+                    <h4>Monthly Revenue</h4>
+                    <div class="value" id="v-stat-rev">INR 0</div>
+                </div>
+                <div class="glass-card stat-card">
+                    <h4>Pending Approvals</h4>
+                    <div class="value" id="v-stat-pending">0</div>
+                </div>
+            </div>
+
+            <div class="glass-card" style="padding: 30px;">
+                <h3>Recent Subscriptions</h3>
+                <table style="width: 100%; border-collapse: collapse; margin-top: 20px;">
+                    <thead>
+                        <tr style="text-align: left; border-bottom: 1px solid #eee;">
+                            <th style="padding: 10px;">Customer</th>
+                            <th style="padding: 10px;">Plan</th>
+                            <th style="padding: 10px;">Paid Amount</th>
+                            <th style="padding: 10px;">Start Date</th>
+                            <th style="padding: 10px;">Status</th>
+                        </tr>
+                    </thead>
+                    <tbody id="v-recent-subs"></tbody>
+                </table>
+            </div>
+        </div>
+
+        <div id="vendor-menu" class="dashboard-section" style="display: none;">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+                <h3>Weekly Menu Management</h3>
+                <button class="btn btn-primary" onclick="showAddMenuModal()">Add Daily Menu</button>
+            </div>
+            <div class="glass-card" style="padding: 20px;">
+                <div id="v-menu-list"></div>
+            </div>
+        </div>
+
+        <div id="vendor-plans" class="dashboard-section" style="display: none;">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+                <h3>Subscription Plan Management</h3>
+                <button class="btn btn-primary" onclick="showAddPlanModal()">Create New Plan</button>
+            </div>
+            <div class="glass-card" style="padding: 20px;">
+                <div id="v-plan-list"></div>
+            </div>
+        </div>
+
+        <div id="vendor-attendance" class="dashboard-section" style="display: none;">
+            <h3>Daily Meal Tracking</h3>
+            <p style="margin-bottom: 20px; color: var(--text-muted);">Mark students as Present (Taken) or Absent (Missed) to auto-extend their plans.</p>
+            <div class="glass-card">
+                <table style="width: 100%; border-collapse: collapse;">
+                    <thead>
+                        <tr style="text-align: left; border-bottom: 1px solid #eee;">
+                            <th style="padding: 10px;">Student Name</th>
+                            <th style="padding: 10px;">Plan</th>
+                            <th style="padding: 10px;">End Date</th>
+                            <th style="padding: 10px;">Action</th>
+                        </tr>
+                    </thead>
+                    <tbody id="v-attendance-list"></tbody>
+                </table>
+            </div>
+        </div>
+
+        <div id="vendor-settings" class="dashboard-section" style="display: none;">
+            <h3>Account Settings</h3>
+            <div class="glass-card" style="padding: 30px; margin-top: 20px;">
+                <form id="vendor-settings-form">
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
+                        <div class="form-group">
+                            <label>Mess Name</label>
+                            <input type="text" id="vs-mess-name">
+                        </div>
+                        <div class="form-group">
+                            <label>Owner Name</label>
+                            <input type="text" id="vs-owner-name">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>Description</label>
+                        <textarea id="vs-description" rows="3"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label>Phone</label>
+                        <input type="text" id="vs-phone">
+                    </div>
+                    <div class="form-group">
+                        <label>Mess Image</label>
+                        <input type="file" id="vs-image-file" accept="image/*" onchange="previewVendorImage(this)">
+                        <input type="hidden" id="vs-image-base64">
+                        <div id="vs-image-preview" style="margin-top: 10px;"></div>
+                    </div>
+                    <div class="form-group">
+                        <label>Address</label>
+                        <textarea id="vs-address" rows="2"></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Update Profile</button>
+                </form>
+            </div>
+        </div>
+    </main>
+</div>
