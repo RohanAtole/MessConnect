@@ -1,6 +1,6 @@
 # MessConnect - The "Zomato" for Mess Services
 
-![MessConnect Banner](assets/thumbnail.png)
+![MessConnect Banner](./src/main/resources/static/assets/thumbnail.png)
 
 MessConnect is a comprehensive, enterprise-grade Mess Management System designed to bridge the gap between mess vendors and customers. It streamlines mess operations, subscription management, and payment processing, providing a modern experience similar to top-tier food-tech platforms.
 
