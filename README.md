@@ -105,4 +105,4 @@ messconnect/
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
-Developed with Rohan Atole by the MessConnect Team.
+Developed by Rohan Atole.
